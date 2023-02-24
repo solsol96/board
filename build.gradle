@@ -1,0 +1,37 @@
+// gradle로 외부 라이브러리를 가져올 때 사용!
+// 즉 Task(gradle 프로젝트) 를 실행할 때!
+buildscript {
+    ext {
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    repositories {
+        // 의존성 (라이브러리) 들을 어떤 원격 저장소에서 받을지 정한다
+        mavenCentral()
+        // 메이븐의 단점 : 내가 만든 라이브러리를 저장소에 업로드 하기 위해 너무 많은 과정이 필요...
+
+        jcenter()
+        // 그 단점을 해결하기 위해 jcenter가 등장!
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.board'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+// 자바 컴파일 시 라이브러리 참조
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
